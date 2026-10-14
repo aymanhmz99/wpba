@@ -1,0 +1,7 @@
+{
+  "appId": "et.edu.ddu.wpba",
+  "appName": "WPBA Offline",
+  "webDir": "www",
+  "android": { "allowMixedContent": false },
+  "server": { "androidScheme": "https" }
+}

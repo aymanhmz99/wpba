@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b6e4f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>WPBA Offline</title>
+<style>
+:root{--bg:#f4f6f5;--card:#fff;--ink:#17201c;--mut:#5f6f68;--acc:#0b6e4f;--accink:#fff;--bad:#b42318;--warn:#9a6700;--line:#dde4e0;--ai:#6b3fc4}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1512;--card:#18211d;--ink:#e6efea;--mut:#98a9a0;--acc:#3ccf91;--accink:#06281b;--bad:#ff8a80;--warn:#e3b341;--line:#2a3730;--ai:#b69cff}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,Roboto,sans-serif}
+header{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:calc(8px + env(safe-area-inset-top)) 14px 8px;background:var(--acc);color:var(--accink)}
+header b{font-size:16px}header span{font-size:13px;opacity:.9}
+header button{background:transparent;color:inherit;border:1px solid currentColor;padding:6px 10px;font-size:13px;min-height:0;margin:0}
+main{padding:12px 12px calc(84px + env(safe-area-inset-bottom));max-width:720px;margin:0 auto}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:5}
+nav button{flex:1;background:none;border:0;border-radius:0;color:var(--mut);margin:0;padding:10px 2px;min-height:56px;font-size:12px}
+nav button.on{color:var(--acc);font-weight:700;box-shadow:inset 0 3px 0 var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+h2{margin:0 0 8px;font-size:18px}h3{margin:12px 0 6px;font-size:15px}
+label{display:block;margin:10px 0 4px;color:var(--mut);font-size:13px}
+input,select,textarea{width:100%;font:inherit;padding:11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-height:44px}
+textarea{resize:vertical}
+button{font:inherit;min-height:44px;padding:10px 16px;border-radius:10px;border:0;background:var(--acc);color:var(--accink);margin:8px 8px 0 0;cursor:pointer}
+button.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+button.danger{background:transparent;color:var(--bad);border:1px solid var(--bad)}
+button:disabled{opacity:.5}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:420px){.row2{grid-template-columns:1fr}}
+.crit{padding:10px 0;border-bottom:1px solid var(--line)}.crit:last-child{border:0}
+.cl{font-size:14px;margin-bottom:6px}.ev{font-size:12px;color:var(--ai);margin-top:2px}
+.seg{display:flex;gap:6px}.seg button{flex:1;margin:0;padding:0;min-height:46px;background:var(--bg);color:var(--ink);border:1px solid var(--line);font-size:17px}
+.seg button.on{background:var(--acc);color:var(--accink);border-color:var(--acc);font-weight:700}
+.seg button.on.ai{background:var(--ai);border-color:var(--ai);color:#fff}
+.legend{font-size:12px;color:var(--mut);margin-top:8px}
+.pill{display:inline-block;padding:2px 9px;border-radius:99px;border:1px solid var(--line);font-size:12px;color:var(--mut)}
+.pill.bad{color:var(--bad);border-color:var(--bad)}.pill.ai{color:var(--ai);border-color:var(--ai)}.pill.warn{color:var(--warn);border-color:var(--warn)}
+.bad{color:var(--bad)}.mut{color:var(--mut)}.warn{color:var(--warn)}
+.list>div{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 4px;border-bottom:1px solid var(--line);min-height:52px;cursor:pointer}
+.list>div:last-child{border:0}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}.kpi{background:var(--bg);border-radius:12px;padding:10px}.kpi b{display:block;font-size:22px}.kpi span{font-size:12px;color:var(--mut)}
+.bar{height:8px;border-radius:4px;background:var(--line);margin-top:4px}.bar i{display:block;height:8px;border-radius:4px;background:var(--acc)}
+.dom{padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}.dom:last-child{border:0}.dom .t{display:flex;justify-content:space-between;gap:8px}
+.fb{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;white-space:pre-wrap}.fb:last-child{border:0}
+#toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:99px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:20;max-width:90%}
+#toast.on{opacity:1}
+dialog{border:0;border-radius:16px;padding:16px;width:min(92vw,420px);background:var(--card);color:var(--ink)}dialog::backdrop{background:#0008}
+.offline{font-size:12px;opacity:.9}
+</style>
+</head>
+<body>
+<header><b>WPBA Offline</b><span id="who"></span></header>
+<main id="app"></main>
+<nav id="nav" hidden></nav>
+<dialog id="dlg"></dialog>
+<div id="toast"></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>

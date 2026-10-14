@@ -1,0 +1,14 @@
+{
+  "name": "wpba-offline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Offline-first WPBA app for anaesthesia training (PWA + optional Android APK via Capacitor)",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "serve": "python3 -m http.server 8080 --directory www",
+    "apk:setup": "npm i @capacitor/core @capacitor/cli @capacitor/android && npx cap add android && npx cap sync",
+    "apk:sync": "npx cap sync android",
+    "apk:open": "npx cap open android"
+  }
+}
